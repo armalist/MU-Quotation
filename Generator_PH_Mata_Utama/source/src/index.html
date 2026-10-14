@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Generator PH Mata Utama</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Carlito:wght@400;700&display=swap">
+<style>
+/*@@STYLE@@*/
+</style>
+<style id="page-style"></style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <img id="logo" src="/*@@LOGO@@*/" alt="Mata Utama">
+    <h1>Generator Penawaran Harga</h1>
+    <div class="sub" id="asof"></div>
+  </header>
+
+  <div class="grid">
+    <div>
+      <!-- 1. DATABASE RATE CARD -->
+      <section class="panel" id="dbpanel">
+        <h2>1 · Database Rate Card <span class="hint" id="db-src"></span></h2>
+        <div class="dbbox">
+          <div class="dbinfo" id="dbinfo"></div>
+          <div class="actions">
+            <label class="btn small primary" for="dbfile" style="margin:0">Upload database…</label>
+            <input type="file" id="dbfile" accept=".xlsx,.csv,.txt" hidden>
+            <button type="button" class="btn small" id="db-export">Unduh database</button>
+            <button type="button" class="btn small" id="db-template">Unduh template</button>
+            <button type="button" class="btn small ghost" id="db-reset">Kembali ke bawaan</button>
+          </div>
+        </div>
+        <div class="row-inline" style="margin-top:10px">
+          <span class="hint">Saat upload:</span>
+          <span class="seg" role="group" aria-label="Mode upload">
+            <button type="button" id="mode-merge" aria-pressed="true">Update (timpa + tambah)</button>
+            <button type="button" id="mode-replace" aria-pressed="false">Ganti semua</button>
+          </span>
+        </div>
+        <div class="drop" id="drop">Tarik file rate card (.xlsx / .csv) ke sini, atau pakai tombol Upload. Kolom wajib: Kategori, Nama Item, Harga Acuan atau Modal/HPP.</div>
+        <p class="status" id="db-status" role="status"></p>
+      </section>
+
+      <!-- 2. DATA PH -->
+      <section class="panel">
+        <h2>2 · Format & Data PH</h2>
+        <div class="fields">
+          <div class="f wide"><label for="tpl">Format / template PH</label>
+            <div class="row-inline" style="flex-wrap:nowrap"><select id="tpl" style="flex:1">
+              <option value="surat">1. Surat Resmi Mata Utama (umum, Tower Media)</option>
+              <option value="surat_desain">2. Surat + Desain & Dimensi (gambar, P × L, m²)</option>
+              <option value="foto">3. Ringkas + Foto Item (Sony, Xiaomi)</option>
+              <option value="rollout">4. Rollout Multi-Store (Cheil / Samsung)</option>
+              <option value="indicia">5. Format Indicia (permintaan klien)</option>
+              <option value="bq">6. BQ / RAB Store Build (Global Teknologi)</option>
+              <option value="manpower">7. Jasa / Manpower Harian (Sinar Cahaya)</option>
+            </select><button type="button" class="btn small" id="tpl-example">Muat contoh format ini</button></div>
+            <span class="hint" id="tpl-hint"></span></div>
+          <div class="f wide"><label>Logo di kepala PH</label>
+            <div class="row-inline">
+              <span class="seg" role="group" aria-label="Logo"><button type="button" id="logo-mu" aria-pressed="true">Mata Utama</button><button type="button" id="logo-klien" aria-pressed="false">Logo klien</button><button type="button" id="logo-none" aria-pressed="false">Tanpa logo</button></span>
+              <label class="photo btn small ghost" for="cl-file" style="margin:0"><span id="cl-prev"></span>Upload logo klien…<input type="file" id="cl-file" accept="image/*"></label>
+            </div>
+            <span class="hint">Logo klien hanya dipakai kalau format klien memintanya (mis. form Indicia). Logo tersimpan di draf.</span></div>
+          <div class="f"><label for="tgl">Tanggal PH</label><input id="tgl" type="date"><span class="hint">Boleh kosong, diisi finance.</span></div>
+          <div class="f"><label for="nomor">No PH (dari Finance)</label><input id="nomor" placeholder="mis. 023/X/PH-MU/26" autocomplete="off"><span class="hint">Tidak dibuat otomatis. Kosong = "(diisi Finance)".</span></div>
+          <div class="f wide"><label for="client">Kepada Yth (Client)</label><input id="client" list="dl-client" autocomplete="off"></div>
+          <div class="f"><label for="alamat1">Alamat baris 1</label><input id="alamat1"></div>
+          <div class="f"><label for="alamat2">Alamat baris 2</label><input id="alamat2"></div>
+          <div class="f"><label for="up">UP (PIC client) <span id="sar-up"></span></label><input id="up"></div>
+          <div class="f"><label for="sales">PIC Sales <span id="sar-sales"></span></label><input id="sales" list="dl-pic"></div>
+          <div class="f wide"><label for="perihal">Perihal</label><input id="perihal" placeholder="kosong = Penawaran Harga + Nama Proyek"></div>
+          <div class="f wide"><label for="proj">Nama Proyek</label><input id="proj"></div>
+          <div class="f"><label for="periode">Periode</label><input id="periode" placeholder="mis. Oktober 2026"></div>
+          <div class="f"><label for="area">Lokasi <span id="sar-area"></span></label><input id="area"></div>
+          <div class="f"><label for="desk">Detail Pekerjaan</label><input id="desk" list="dl-desk"></div>
+          <div class="f" data-tpl="rollout"><label for="principal">Principal / brand owner <span class="hint">(kotak Approved by ke-3)</span></label><input id="principal" placeholder="mis. PT. SAMSUNG ELECTRONICS INDONESIA"></div>
+          <div class="f" data-tpl="rollout"><label for="principalPic">Nama PIC principal</label><input id="principalPic"></div>
+          <div class="f"><label for="kat">Kategori Proyek</label><input id="kat" list="dl-kat"></div>
+          <div class="f"><label>Pajak</label>
+            <span class="seg" role="group" aria-label="Pajak"><button type="button" id="ppn-y" aria-pressed="true">PPN 11%</button><button type="button" id="ppn-n" aria-pressed="false">NON PPN</button></span></div>
+          <div class="f"><label for="margin">Margin default (%) <span class="hint">0–200</span></label><input id="margin" type="number" min="0" max="200" step="1" inputmode="decimal"><span class="hint">Dipakai untuk item yang Modal/HPP-nya diisi.</span></div>
+          <div class="f"><label for="disc">Diskon (Rp)</label><input id="disc" inputmode="numeric" placeholder="0"></div>
+          <div class="f"><label for="kalimat">Kalimat pembuka</label>
+            <select id="kalimat"><option value="sebagai berikut">… untuk pekerjaan sebagai berikut</option><option value="lanjutan sebagai berikut">… untuk pekerjaan lanjutan sebagai berikut</option></select></div>
+          <div class="f wide"><label for="catatan">Catatan di bawah tabel <span class="hint">(opsional, tercetak)</span></label><input id="catatan" placeholder="mis. Harga berlaku 14 hari · Pembayaran 30 hari setelah BAST"></div>
+        </div>
+      </section>
+
+      <!-- 3. ITEM -->
+      <section class="panel">
+        <h2>3 · Daftar Item</h2>
+        <div class="items" id="items"></div>
+        <div class="actions" style="margin-top:10px">
+          <button type="button" class="btn small" id="add">+ Tambah item</button>
+          <span class="hint">Pilih Kategori → Sub Kategori → Item, atau ketik di kotak "Cari rate card". Harga: Manual › Modal × (1+margin) › Acuan rate card.</span>
+        </div>
+        <div class="sumgrid">
+          <div class="internal" id="internal"></div>
+          <div class="sum" id="sum"></div>
+        </div>
+      </section>
+
+      <!-- 4. SIMPAN -->
+      <section class="panel">
+        <h2>4 · Penandatangan & Simpan</h2>
+        <div class="fields">
+          <div class="f"><label for="ttd">Nama penandatangan</label><input id="ttd"></div>
+          <div class="f"><label for="jab">Jabatan</label><input id="jab"></div>
+        </div>
+        <p class="hint" style="margin:6px 0 0">Tanda tangan tidak ditempel otomatis — PH ditandatangani setelah disetujui.</p>
+        <div class="actions" style="margin-top:14px">
+          <button type="button" class="btn primary" id="xlsx">Unduh Excel</button>
+          <button type="button" class="btn" id="pdf">Unduh PDF</button>
+          <button type="button" class="btn" id="print">Cetak</button>
+          <label class="row-inline hint" style="font-size:12px"><input type="checkbox" id="withint" style="width:auto"> Excel + sheet Internal (modal & margin)</label>
+        </div>
+        <div class="actions" style="margin-top:8px">
+          <button type="button" class="btn small" id="cp-master">Salin baris PH-MU2026</button>
+          <button type="button" class="btn small" id="cp-unit">Salin baris Unit Price</button>
+          <button type="button" class="btn small" id="draft-save">Simpan draf (.json)</button>
+          <label class="btn small" for="draft-file" style="margin:0">Buka draf…</label><input type="file" id="draft-file" accept=".json" hidden>
+          <button type="button" class="btn small ghost" id="clear">Kosongkan (PH baru)</button>
+        </div>
+        <p class="status" id="status" role="status"></p>
+        <textarea id="fallback" hidden rows="4" style="width:100%;font:12px monospace"></textarea>
+        <details class="set" style="margin-top:10px"><summary>Pengaturan</summary>
+          <div class="fields">
+            <div class="f"><label for="set-ppn">Tarif PPN (%)</label><input id="set-ppn" type="number" step="0.01" min="0"></div>
+          </div>
+        </details>
+      </section>
+    </div>
+
+    <div class="sticky">
+      <div class="panel">
+        <h2>Pratinjau</h2>
+        <div class="pv-wrap" id="pvwrap"><div class="paper" id="paper"></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<dialog id="dlg"><div id="dlg-body"></div><div class="actions" style="justify-content:flex-end;margin-top:14px"><button type="button" class="btn" id="dlg-no">Batal</button><button type="button" class="btn primary" id="dlg-yes">Lanjutkan</button></div></dialog>
+
+<datalist id="dl-lok"></datalist><datalist id="dl-client"></datalist><datalist id="dl-pic"></datalist><datalist id="dl-kat"></datalist><datalist id="dl-rc"></datalist>
+<datalist id="dl-desk"><option>Produksi</option><option>Installasi</option><option>Produksi dan Installasi</option><option>Produksi dan Pengiriman</option><option>Pengiriman dan Installasi</option><option>Install dan Take Out</option><option>Dismantle</option><option>Survey</option><option>Maintenance</option><option>Jasa</option></datalist>
+
+<script type="application/json" id="data">/*@@DATA@@*/</script>
+<!--@@VENDOR@@-->
+<script>
+/*@@APP@@*/
+</script>
+</body>
+</html>
