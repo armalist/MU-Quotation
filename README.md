@@ -299,7 +299,7 @@ Kunci item = Kategori + Sub Kategori + Nama Item + Ukuran + Satuan. Angka boleh 
 
 ```
 source/
-├── build.py            ← perakit: menggabungkan semua file jadi 1 HTML
+├── build.py            ← build: menggabungkan semua file jadi 1 HTML
 ├── build_db.py         ← membuat rate card bawaan dari data historis (dipakai sekali)
 ├── src/
 │   ├── index.html      ← kerangka halaman: panel, tombol, kotak isian
@@ -313,12 +313,12 @@ source/
     └── clients.json    ← daftar klien + saran lokasi/PIC
 ```
 
-**Cara kerja perakit**:
+**Cara kerja**:
 - `index.html` punya penanda `/*@@STYLE@@*/`, `/*@@DATA@@*/`, `/*@@APP@@*/`, dan seterusnya.
 - `build.py` mengganti tiap penanda dengan isi file terkait.
 - Hasilnya satu file HTML ±2,3 MB yang bisa dibuka tanpa internet.
 
-**Cara merakit ulang** (Mac):
+**Cara build ulang** (Mac):
 1. Buka Terminal.
 2. `cd` ke folder `source`.
 3. Jalankan `python3 build.py`.
