@@ -1,9 +1,8 @@
-"""Rakit Generator PH Mata Utama menjadi SATU file HTML yang bisa dibuka offline.
-Pakai:  python3 build.py
+
 Input :  src/index.html, src/style.css, src/templates.js (7 format PH), src/app.js, src/vendor/*.js, src/logo.datauri.txt,
          data/db_default.json (rate card bawaan), data/clients.json
 Output:  dist/Generator_PH_Mata_Utama.html
-"""
+
 import json, pathlib, datetime
 B = pathlib.Path(__file__).parent
 src = B / 'src'
