@@ -3,6 +3,8 @@
 Untuk: Account / main person Tower Media Group & klien lain, PT Mata Utama Indonesia
 Versi 2: Oktober 2026, dengan 7 format PH (berdasarkan data historis dari quotation 2025-2026)
 
+Cukup download file Generator_PH_Mata_Utama.html
+
 Daftar isi:
 - A. Isi folder
 - B. 7 format PH
