@@ -1,10 +1,10 @@
 # Generator PH Mata Utama — Panduan Lengkap
 
 Untuk: Account / main person Tower Media Group & klien lain, PT Mata Utama Indonesia
-Versi 2: Oktober 2026, dengan 7 format PH
+Versi 2: Oktober 2026, dengan 7 format PH (berdasarkan data historis dari quotation 2025-2026)
 
-Isi panduan:
-- A. Isi paket
+Daftar isi:
+- A. Isi folder
 - B. 7 format PH
 - C. Fungsi HTML satu per satu
 - D. Cara kerja harga modal, margin, dan pajak
@@ -14,7 +14,7 @@ Isi panduan:
 
 ---
 
-## A. Isi paket ZIP
+## A. Isi Folder
 
 | File / folder | Isi |
 |---|---|
